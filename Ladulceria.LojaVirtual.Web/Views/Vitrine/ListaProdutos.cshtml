@@ -1,81 +1,31 @@
-﻿@model IEnumerable<Ladulceria.LojaVirtual.Dominio.Entidades.Produto>
+﻿@using Ladulceria.LojaVirtual.Web.HtmlHelpers
+@model Ladulceria.LojaVirtual.Web.Models.ProdutosViewModel
 
-@{
-    ViewBag.Title = "ListaProdutos";
+
+@foreach (var p in Model.Produtos)
+{ 
+    
+    @Html.Partial("ProdutoDetalhes", p)
+
+        <!--<div class="panel panel-default ">
+
+            <div class="panel-heading"><h3>@p.ProdutoDescricao</h3></div>
+            <ul class="list-group">
+                <li class="list-group-item">@p.ProdutoDescricaoResumida</li>
+                <li class="list-group-item"><h3><span class="label label-primary">@p.Preco.ToString("c")</span></h3></li>
+            </ul>
+        </div>
+
+        <div>
+        </div>-->
+    
+    
+    <!--<div>
+
+        <h3>@p.ProdutoDescricao</h3>
+        @p.ProdutoDescricaoResumida
+        <h3>@p.Preco.ToString("c")</h3>
+
+    </div>-->
 }
-
-<h2>ListaProdutos</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdutoDescricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdutoCodigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdutoDescricaoResumida)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MarcaDescricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdutoModeloCodigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CorCodigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TamanhoCodigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UnidadeVenda)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Preco)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProdutoDescricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProdutoCodigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProdutoDescricaoResumida)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MarcaDescricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProdutoModeloCodigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CorCodigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TamanhoCodigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnidadeVenda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Preco)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProdutoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProdutoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProdutoId })
-        </td>
-    </tr>
-}
-
-</table>
+@Html.PageLinks(Model.Paginacao, x => Url.Action("ListaProdutos", new { pagina = x}))

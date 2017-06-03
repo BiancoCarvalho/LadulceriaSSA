@@ -1,4 +1,5 @@
 ﻿using Ladulceria.LojaVirtual.Dominio.Repositorio;
+using Ladulceria.LojaVirtual.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,25 @@ namespace Ladulceria.LojaVirtual.Web.Controllers
         {
 
             _repositorio = new ProdutosRepositorio();
-            var produtos = _repositorio.Produtos
+
+            ProdutosViewModel model = new ProdutosViewModel
+            {
+
+                Produtos = _repositorio.Produtos
                 .OrderBy(p => p.ProdutoId)
                 .Skip((pagina - 1) * ProdutosPorPagina)
-                .Take(ProdutosPorPagina);
+                .Take(ProdutosPorPagina),
 
-            return View(produtos);
+                Paginacao = new Paginacao
+                {
+                    PaginaAtual = pagina,
+                    ItensPorPagina = ProdutosPorPagina,
+                    ItensTotal = _repositorio.Produtos.Count()
+                }
+
+            };       
+         
+            return View(model);
         }
 	}
 }
